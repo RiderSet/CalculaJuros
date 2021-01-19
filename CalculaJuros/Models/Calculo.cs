@@ -1,4 +1,5 @@
 ﻿using Calcula.Interfaces;
+using CalculaJuros.Models;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
@@ -13,9 +14,9 @@ namespace Calcula.Models
         }
 
         public Guid Id { get; set; }
-        public decimal ValorInicial { get; set; }
-        public decimal ValorFinal { get; set; }
-        public decimal Juros { get; set; }
+        public double ValorInicial { get; set; }
+        public double ValorFinal { get; set; }
+        public double Juros { get; set; }
         public int Tempo { get; set; }
     }
 }

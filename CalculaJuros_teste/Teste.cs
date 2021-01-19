@@ -10,7 +10,7 @@ namespace CalculaJuros_teste
 
         [Theory]
         [InlineData(60, 5)]
-        public void CalculaJuros_Teste(decimal valorInicial, int tempo)
+        public void CalculaJuros_Teste(double valorInicial, int tempo)
         {
             string valorfinal = controlador.GetAsync(valorInicial, tempo).ToString();
             Assert.Equal(valorInicial.ToString(), valorfinal);

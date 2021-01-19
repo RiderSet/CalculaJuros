@@ -10,9 +10,9 @@ namespace Calcula.Services
     {
         private CalculoRepository repository = new CalculoRepository();
 
-        public Task<decimal> CalculaJurosAsync(decimal valorInicial, int tempo)
+        public Task<Calculo> CalculaJurosAsync(double valorInicial, int tempo)
         {
-            decimal dec = Math.Round(valorInicial, 2);
+            double dec = Math.Round(valorInicial, 2);
             return repository.CalculaJurosAsync(dec, tempo);
         }
 

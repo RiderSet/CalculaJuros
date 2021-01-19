@@ -5,7 +5,7 @@ namespace Calcula.Interfaces
 {
     public interface ICalculo
     {
+        Task<Calculo> CalculaJurosAsync(double valorInicial, int tempo);
         string ShowMe();
-        Task<decimal> CalculaJurosAsync(decimal valorInicial, int tempo);
     }
 }
