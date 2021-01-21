@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CalculaJuros</name>
+    </assembly>
+    <members>
+        <member name="M:CalculaJuros.Controllers.CalculaJurosController.GetAsync(System.Double,System.Int32)">
+            <summary>
+            Retornas um objeto Calculo
+            </summary>
+            <returns>Os itens do objeto Calculo</returns>
+            <response code="200">Retorna um calculo completo</response>
+        </member>
+        <member name="M:CalculaJuros.Controllers.CalculaJurosController.ShowMe">
+            <summary>    
+            CalculaJurosController ShowMeTheCode   
+            </summary>    
+            <returns></returns>  
+        </member>
+    </members>
+</doc>

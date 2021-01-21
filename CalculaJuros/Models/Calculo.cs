@@ -1,18 +1,26 @@
-﻿using Calcula.Interfaces;
-using CalculaJuros.Models;
-using System;
-using System.ComponentModel.DataAnnotations;
-using System.Threading.Tasks;
+﻿using System;
 
+/// <summary>
+/// NameSpace Models
+/// </summary>
 namespace Calcula.Models
 {
+    /// <summary>
+    /// Classe do Cálculo
+    /// </summary>
     public class Calculo
     {
+        /// <summary>
+        /// Construtor do cálculo
+        /// </summary>
         public Calculo()
         {
             this.Id = new Guid();
         }
 
+        /// <summary>
+        /// Identificador do cálculo
+        /// </summary>
         public Guid Id { get; set; }
         public double ValorInicial { get; set; }
         public double ValorFinal { get; set; }

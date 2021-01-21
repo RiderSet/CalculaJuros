@@ -3,36 +3,52 @@ using Calcula.Services;
 using CalculaJuros.Context;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Internal;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Swashbuckle.AspNetCore.Swagger;
+using System;
+using System.IO;
+using System.Reflection;
 
 namespace CalculaJuros
 {
+    /// <summary>
+    /// Classe startup
+    /// </summary>
     public class Startup
     {
-        public Startup(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
-
-        public IConfiguration Configuration { get; }
-        //readonly string origensPermitidas = "_origensPermitidas";
-
-        // This method gets called by the runtime. Use this method to add services to the container.
+        /// <summary>
+        /// Método ConfigureServices
+        /// </summary>
+        /// <returns>
+        /// Retorna vazio.
+        /// </returns>
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<Contexto>(opt =>
                 opt.UseInMemoryDatabase("Calculos"));
+
+            services.AddSwaggerGen(opt =>
+            {
+                opt.SwaggerDoc("v1", new Info { Title = "CalculaJuros", Version = "v1" });
+
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+
+                opt.IncludeXmlComments(xmlPath);
+            });
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-            services.AddTransient<ICalculo, CalculoService>();
-            services.AddSingleton(Configuration);
-            //services.Configure<MySettings>(Configuration.GetSection("MySettings"));
+            services.AddScoped<ICalculo, CalculoService>();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        /// <summary>
+        /// Método Configure
+        /// </summary>
+        /// <returns>
+        /// Retorna vazio.
+        /// </returns>
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
@@ -41,14 +57,13 @@ namespace CalculaJuros
             }
             else
             {
-                // The default HSTS value is 30 days. You may want to change this for 
-                // production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 
-            app.UseMvc(routes =>
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
             {
-                routes.MapRoute("default", "{controller=CalculaJuros}/{valorInicial?}/{tempo?}");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "CalculaJuros V1");
             });
 
             app.UseHttpsRedirection();
